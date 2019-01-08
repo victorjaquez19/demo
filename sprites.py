@@ -68,9 +68,9 @@ class Player(Sprite):
         # print("vel " + str(self.vel))
 
         keys = pg.key.get_pressed()
-        if keys[pg.K_a]:
+        if keys[pg.K_LEFT]:
             self.acc.x =  -PLAYER_ACC
-        if keys[pg.K_d]:
+        if keys[pg.K_RIGHT]:
             self.acc.x = PLAYER_ACC
         # set player friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
@@ -187,7 +187,7 @@ class Mob(Sprite):
         self.groups = game.all_sprites, game.mobs
         Sprite.__init__(self, self.groups)
         self.game = game
-        self.image_up = self.game.spritesheet.get_image(566, 510, 122, 139)
+        self.image_up ="ground_grass_small.png" x="213" y="1662" width="201" height="100"/>
         self.image_up.set_colorkey(BLACK)
         self.image_down = self.game.spritesheet.get_image(568, 1534, 122, 135)
         self.image_down.set_colorkey(BLACK)
@@ -206,10 +206,10 @@ class Mob(Sprite):
         self.rect.x += self.vx
         self.vy += self.dy
         self.rect_top = self.rect.top
-        if self.vy > 3 or  self.vy < -3:
+        if self.vy > -3 or  self.vy < 3:
             self.dy *= -1
         center = self.rect.center
-        if self.dy < 0:
+        if self.dy < -9.81:
             self.image = self.image_up
         else:
             self.image = self.image_down
@@ -218,3 +218,70 @@ class Mob(Sprite):
         self.rect.y += self.vy
         if self.rect.left > WIDTH + 100 or self.rect.right < -100:
             self.kill()
+
+
+
+   
+#    class Mob(Sprite):
+#     def __init__(self, game):
+#         # allows layering in LayeredUpdates sprite group
+#         self._layer = MOB_LAYER
+#         # add a groups property where we can pass all instances of this object into game groups
+#         self.groups = game.all_sprites, game.mobs
+#         Sprite.__init__(self, self.groups)
+#         self.game = game
+#         self.image_up ="ground_grass_small.png" x="213" y="1662" width="201" height="100"/>
+#         self.image_up.set_colorkey(BLACK)
+#         self.image_down = self.game.spritesheet.get_image(568, 1534, 122, 135)
+#         self.image_down.set_colorkey(BLACK)
+#         self.image = self.image_up
+#         self.image.set_colorkey(BLACK)
+#         self.rect = self.image.get_rect()
+#         self.rect.centerx = choice([-100, WIDTH + 100])
+#         self.rect_top = self.rect.top
+#         self.vx = randrange(, )
+#         if self.rect.centerx > WIDTH:
+#             self.vx *= -1
+#         self.rect.y = randrange(HEIGHT/2)
+#         self.vy = 0
+#         self.dy = 0.5
+#     def update(self):
+#         self.rect.x += self.vx
+#         self.vy += self.dy
+#         self.rect_top = self.rect.top
+#         if self.vy > 3 or  self.vy < -3:
+#             self.dy *= -1
+#         center = self.rect.center
+#         if self.dy < 0:
+#             self.image = self.image_up
+#         else:
+#             self.image = self.image_down
+#         self.rect.center = center
+#         self.rect_top = self.rect.top
+#         self.rect.y += self.vy
+#         if self.rect.left > WIDTH + 100 or self.rect.right < -100:
+#             self.kill()
+
+
+
+
+
+class circle():
+
+    def __init__(self, screen):
+         self._layer = MOB_LAYER
+        planet_color = (255,0,0)
+        planet_radius = 20
+        self.screen = screen
+        ev = pygame.event.get()
+
+        self.image = pygame.image.load('../images/jupiter.bmp')
+        self.image = pygame.transform.scale(self.image, (80, 80))
+
+
+    def blitme(self):
+        self.x = pygame.mouse.get_pos()
+        self.rect = self.image.get_rect()
+        self.rect.center = self.x
+        self.screen.blit(self.image, self.rect)
+

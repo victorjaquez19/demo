@@ -6,7 +6,8 @@
 Curious, Creative, Tenacious(requires hopefulness)
 
 Game ideas:
-Walls closing in on player
+1. Make sprites fall from top and need to avoid them.
+2. Change color of background every 1000 points.
 
 '''
 import pygame as pg
@@ -67,7 +68,7 @@ class Game:
         # add powerups
         self.powerups = pg.sprite.Group()
         
-        self.mob_timer = 0
+        self.mob_timer = 1
         # add a player 1 to the group
         self.player = Player(self)
         # add mobs
